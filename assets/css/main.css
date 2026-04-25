@@ -3218,22 +3218,6 @@ screen and (max-height:300px) {
     gap: 0.18rem;
   }
 
-  .home-editorial .article-author-top .author-bio-name {
-    font-size: 0.72rem;
-    letter-spacing: 0.09em;
-  }
-
-  .home-editorial .article-author-top .author-bio-role {
-    font-size: 0.65rem;
-    letter-spacing: 0.075em;
-  }
-
-  .home-editorial .article-author-top .author-bio-quote {
-    margin-top: 0.08rem;
-    font-size: 0.88rem;
-    line-height: 1.72;
-  }
-
   .home-editorial .article-author-top .author-bio-links {
     gap: 0.18rem;
     padding-top: 0.8rem;
@@ -4631,13 +4615,55 @@ p+p {
   }
 
   .site-name a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    line-height: 1.2;
     font-size: 0.9rem;
     letter-spacing: 0.15em;
   }
 
+  .top-navigation {
+    margin-top: 0.15rem;
+  }
+
+  .top-navigation nav {
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--rule-mid);
+  }
+
+  .top-navigation ul,
+  .top-navigation-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem 0.95rem;
+    align-items: stretch;
+  }
+
+  .top-navigation li {
+    min-width: 0;
+  }
+
   .top-navigation li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 2.15rem;
+    padding: 0.12rem 0 0.3rem;
+    border-bottom: 1px solid rgba(29, 25, 21, 0.08);
+    line-height: 1.2;
     font-size: 0.76rem;
     letter-spacing: 0.06em;
+  }
+
+  .top-navigation-current::before {
+    top: auto;
+    bottom: -1px;
+    left: 0;
+    right: auto;
+    width: 2.1rem;
+    background: rgba(29, 25, 21, 0.82);
   }
 
   .headline-wrap h1,

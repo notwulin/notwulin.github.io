@@ -4,8 +4,8 @@
 	</div><!-- /.site-name -->
   {% capture url %}{{ page.url | remove:'index.html' }}{% endcapture %}
 	<div class="top-navigation">
-		<nav role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
-		    <ul>
+		<nav class="site-navigation" role="navigation" aria-label="Primary navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		    <ul class="top-navigation-list">
 			        {% for link in site.links %}
 	            <li><a href="{{ link.url | relative_url }}" {% if url == link.url %}class="top-navigation-current" aria-current="page"{% endif %}>{{ link.title }}</a></li>
 			        {% endfor %}
