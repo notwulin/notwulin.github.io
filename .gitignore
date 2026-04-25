@@ -1,0 +1,9 @@
+_site/
+.jekyll-cache/
+.sass-cache/
+.DS_Store
+venv/
+.venv/
+get_shots.py
+.idea/
+.obsidian/

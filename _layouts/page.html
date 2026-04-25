@@ -1,0 +1,170 @@
+<!doctype html>
+<html class="no-js" lang="{{ page.lang | default: site.locale | default: 'zh-CN' }}">
+
+<head>
+{% include head.html %}
+
+</head>
+
+
+<body class="page{% if page.page_class %} {{ page.page_class }}{% endif %}" itemscope itemtype="http://schema.org/WebPage">
+
+{% include navigation.html %}
+
+{% if page.image.feature %}<div class="image-wrap">
+  <img src="{{ '/images/' | append: page.image.feature | relative_url }}" alt="{{ page.title }} feature image" itemprop="primaryImageOfPage">
+</div><!-- /.image-wrap -->{% endif %}
+
+<div id="main" role="main"  itemprop="mainContentOfPage">
+  <div class="article-author-top">
+    {% include author-bio.html %}
+  </div>
+  <article itemscope itemtype="http://schema.org/CreativeWork">
+  {% comment %}
+    <div class="headline-wrap">
+      <h1 itemprop="headline">{{ page.title }}</h1>
+    </div><!--/ .headline-wrap -->
+  {% endcomment %}
+    <div class="article-wrap" itemprop="text">
+      {{ content }}
+    </div><!-- /.article-wrap -->
+  </article>
+  <aside class="article-side-nav">
+    <nav aria-label="{{ page.side_nav_aria | default: 'Page contents' }}" data-default-label="{{ page.side_nav_label | default: 'Contents' }}">
+      {% if page.side_nav_label %}<p class="article-side-nav-label">{{ page.side_nav_label }}</p>{% endif %}
+      {% for item in page.side_nav %}
+      <a href="{{ item.href }}" class="article-side-nav-link">{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+  </aside>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var nav = document.querySelector(".article-side-nav");
+      if (!nav) return;
+
+      var navInner = nav.querySelector("nav");
+      if (!navInner) return;
+
+      var links = Array.prototype.slice.call(nav.querySelectorAll(".article-side-nav-link[href^='#']"));
+
+      if (!links.length) {
+        var headings = Array.prototype.slice.call(document.querySelectorAll(".article-wrap h2"));
+        var seen = {};
+        var generated = [];
+
+        headings.forEach(function (heading) {
+          var parentSection = heading.parentElement && heading.parentElement.matches("section[id]") ? heading.parentElement : null;
+          var targetId = parentSection ? parentSection.id : heading.id;
+          var label = heading.textContent ? heading.textContent.trim() : "";
+
+          if (!targetId || !label || seen[targetId]) return;
+          seen[targetId] = true;
+          generated.push({ href: "#" + targetId, label: label });
+        });
+
+        if (generated.length >= 2) {
+          if (!navInner.querySelector(".article-side-nav-label")) {
+            var labelNode = document.createElement("p");
+            labelNode.className = "article-side-nav-label";
+            labelNode.textContent = navInner.getAttribute("data-default-label") || "Contents";
+            navInner.appendChild(labelNode);
+          }
+
+          generated.forEach(function (item) {
+            var link = document.createElement("a");
+            link.href = item.href;
+            link.className = "article-side-nav-link";
+            link.textContent = item.label;
+            navInner.appendChild(link);
+          });
+        }
+
+        links = Array.prototype.slice.call(nav.querySelectorAll(".article-side-nav-link[href^='#']"));
+      }
+
+      if (links.length < 2) return;
+
+      nav.classList.add("is-ready");
+
+      var items = links.map(function (link) {
+        var target = document.querySelector(link.getAttribute("href"));
+        return target ? { link: link, target: target } : null;
+      }).filter(Boolean);
+
+      if (items.length < 2) return;
+
+      function setActive(id) {
+        items.forEach(function (item) {
+          var isActive = item.target.id === id;
+          item.link.classList.toggle("is-active", isActive);
+          if (isActive) {
+            item.link.setAttribute("aria-current", "true");
+          } else {
+            item.link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      setActive(items[0].target.id);
+
+      var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      var smoothLinks = Array.prototype.slice.call(
+        document.querySelectorAll(
+          ".article-side-nav-link[href^='#'], .hobbies-jump a[href^='#'], .music-jump a[href^='#']"
+        )
+      );
+
+      smoothLinks.forEach(function (link) {
+        link.addEventListener("click", function (event) {
+          var href = link.getAttribute("href");
+          var target = href ? document.querySelector(href) : null;
+          if (!target) return;
+
+          event.preventDefault();
+          target.scrollIntoView({
+            behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+            block: "start"
+          });
+
+          if (history.replaceState) {
+            history.replaceState(null, "", href);
+          } else {
+            window.location.hash = href;
+          }
+        });
+      });
+
+      if (!("IntersectionObserver" in window)) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        var visible = entries.filter(function (entry) {
+          return entry.isIntersecting;
+        }).sort(function (a, b) {
+          return Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top);
+        });
+
+        if (visible.length) {
+          setActive(visible[0].target.id);
+        }
+      }, {
+        rootMargin: "-18% 0px -68% 0px",
+        threshold: [0, 0.2, 0.45, 0.75]
+      });
+
+      items.forEach(function (item) {
+        observer.observe(item.target);
+      });
+    });
+  </script>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    {% include footer.html %}
+  </footer>
+</div><!-- /.footer-wrap -->
+
+{% include scripts.html %}
+
+</body>
+</html>

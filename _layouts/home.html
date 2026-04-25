@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js" lang="{{ page.lang | default: site.locale | default: 'zh-CN' }}">
+
+<head>
+{% include head.html %}
+
+</head>
+
+<body class="home" itemscope itemtype="http://schema.org/WebPage">
+
+{% include navigation.html %}
+
+<div class="image-wrap">
+  <div class="headline-wrap">
+    <h1>{{ page.title }}</h1>
+    {% if page.tagline %}<h2>{{ page.tagline }}</h2>{% endif %}
+  </div><!--/ .headline-wrap -->
+  <img src="{{ '/images/' | append: page.image.feature | relative_url }}" alt="{{ page.title }} feature image">
+</div><!-- /.image-wrap -->
+
+<div class="article-author-top">
+  {% include author-bio.html %}
+</div>
+
+<div id="index" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/Blog">
+  <a href="{{ '/articles' | relative_url }}" class="btn btn-small pull-right">View all articles</a>
+  <h3>Latest Articles</h3>
+  <hr />
+  {% for post in site.categories.articles limit:5 %}    
+  <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <h2 itemprop="headline"><a href="{{ post.url | relative_url }}" rel="bookmark" title="{{ post.title }}">{{ post.title }}</a></h2>
+    <p itemprop="text">{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
+  </article>
+  {% endfor %}
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    {% include footer.html %}
+  </footer>
+</div><!-- /.footer-wrap -->
+
+{% include scripts.html %}
+  
+</body>
+</html>
