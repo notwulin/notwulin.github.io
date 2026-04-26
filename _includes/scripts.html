@@ -1,6 +1,46 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="{{ '/assets/js/vendor/jquery-1.9.1.min.js' | relative_url }}"><\/script>')</script>
 <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (prefersReducedMotion.matches || !("IntersectionObserver" in window)) return;
+
+    var revealItems = Array.prototype.slice.call(document.querySelectorAll([
+      ".home-section",
+      ".home-feature",
+      ".portfolio-entry",
+      ".editorial-section",
+      ".editorial-entry",
+      ".hobby-section",
+      ".hobby-fold",
+      ".home-contact-list li",
+      ".article-side-nav",
+      ".footer-wrap"
+    ].join(",")));
+
+    if (!revealItems.length) return;
+
+    document.documentElement.classList.add("motion-ready");
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, {
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0.08
+    });
+
+    revealItems.forEach(function (item, index) {
+      item.classList.add("motion-reveal");
+      item.style.setProperty("--motion-index", String(Math.min(index % 4, 3)));
+      observer.observe(item);
+    });
+  });
+</script>
 {% if site.google_analytics %}
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -1,15 +1,74 @@
 <div class="navigation-wrapper">
-	<div class="site-name">
-		<a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-	</div><!-- /.site-name -->
-  {% capture url %}{{ page.url | remove:'index.html' }}{% endcapture %}
-	<div class="top-navigation">
-		<nav class="site-navigation" role="navigation" aria-label="Primary navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
-		    <ul class="top-navigation-list">
-			        {% for link in site.links %}
-	            <li><a href="{{ link.url | relative_url }}" {% if url == link.url %}class="top-navigation-current" aria-current="page"{% endif %}>{{ link.title }}</a></li>
-			        {% endfor %}
-		    </ul>
-		</nav>
-	</div><!-- /.top-navigation -->
+  <div class="navigation-shell">
+	  <div class="navigation-bar">
+	    <div class="site-name">
+		    <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+	    </div><!-- /.site-name -->
+
+      <button class="navigation-toggle" type="button" aria-expanded="false" aria-controls="site-navigation-menu" aria-label="Toggle navigation">
+        <span class="navigation-toggle-stack" aria-hidden="true">
+          <span class="navigation-toggle-line"></span>
+          <span class="navigation-toggle-line"></span>
+          <span class="navigation-toggle-line"></span>
+        </span>
+        <span class="navigation-toggle-label">Menu</span>
+      </button>
+    </div><!-- /.navigation-bar -->
+
+    {% capture url %}{{ page.url | remove:'index.html' }}{% endcapture %}
+	  <div class="top-navigation" id="site-navigation-menu">
+		  <nav class="site-navigation" role="navigation" aria-label="Primary navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+		      <ul class="top-navigation-list">
+				      {% for link in site.links %}
+	              <li><a href="{{ link.url | relative_url }}" {% if url == link.url %}class="top-navigation-current" aria-current="page"{% endif %}>{{ link.title }}</a></li>
+				      {% endfor %}
+		      </ul>
+		  </nav>
+	  </div><!-- /.top-navigation -->
+  </div><!-- /.navigation-shell -->
 </div><!-- /.navigation-wrapper -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var shell = document.querySelector(".navigation-shell");
+    var toggle = shell ? shell.querySelector(".navigation-toggle") : null;
+    if (!shell || !toggle) return;
+
+    var menu = shell.querySelector("#site-navigation-menu");
+    var desktopQuery = window.matchMedia("(min-width: 38em)");
+
+    function setOpen(next) {
+      shell.classList.toggle("is-open", next);
+      toggle.setAttribute("aria-expanded", String(next));
+    }
+
+    function syncDesktopState() {
+      if (desktopQuery.matches) {
+        setOpen(false);
+      }
+    }
+
+    toggle.addEventListener("click", function () {
+      var next = !shell.classList.contains("is-open");
+      setOpen(next);
+    });
+
+    if (menu) {
+      menu.addEventListener("click", function (event) {
+        if (event.target.closest("a") && !desktopQuery.matches) {
+          setOpen(false);
+        }
+      });
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && shell.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    window.addEventListener("resize", syncDesktopState);
+    syncDesktopState();
+  });
+</script>
