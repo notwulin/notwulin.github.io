@@ -29,10 +29,10 @@
 </div><!-- /.navigation-wrapper -->
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+  (function () {
     var shell = document.querySelector(".navigation-shell");
     var toggle = shell ? shell.querySelector(".navigation-toggle") : null;
-    if (!shell || !toggle) return;
+    if (!shell || !toggle || shell.getAttribute("data-nav-init") === "true") return;
 
     var menu = shell.querySelector("#site-navigation-menu");
     var desktopQuery = window.matchMedia ? window.matchMedia("(min-width: 38em)") : null;
@@ -62,6 +62,7 @@
       }
     }
 
+    shell.setAttribute("data-nav-init", "true");
     shell.setAttribute("data-nav-enhanced", "true");
     setOpen(false);
 
@@ -89,5 +90,5 @@
 
     window.addEventListener("resize", syncDesktopState);
     syncDesktopState();
-  });
+  })();
 </script>
