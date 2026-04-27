@@ -3904,7 +3904,8 @@ p+p {
   font-family: var(--font-zh-display);
   font-size: var(--type-page-title);
   line-height: var(--leading-tight);
-  font-weight: 500;
+  font-weight: 400;
+  font-synthesis: none;
   letter-spacing: 0;
   color: var(--ink-strong);
   text-wrap: balance;
@@ -3922,7 +3923,8 @@ p+p {
   font-family: var(--font-zh-display);
   font-size: var(--type-section-title);
   line-height: var(--leading-heading);
-  font-weight: 510;
+  font-weight: 400;
+  font-synthesis: none;
   color: var(--ink-strong);
   letter-spacing: 0;
 }
@@ -4585,7 +4587,8 @@ p+p {
   font-family: var(--font-zh-display);
   font-size: clamp(1.86rem, 2.45vw, 2.24rem);
   line-height: 1.22;
-  font-weight: 500;
+  font-weight: 400;
+  font-synthesis: none;
   letter-spacing: 0;
   color: var(--ink-strong);
   text-wrap: balance;
@@ -4936,7 +4939,8 @@ p+p {
   .editorial-title,
   .article-wrap>h1:first-child {
     font-family: var(--font-zh-display);
-    font-weight: 500;
+    font-weight: 400;
+    font-synthesis: none;
     line-height: var(--leading-tight);
     font-size: clamp(2.12rem, 10vw, 2.72rem);
   }
@@ -4947,7 +4951,8 @@ p+p {
   .editorial-section h2,
   .hobby-section h2 {
     font-family: var(--font-zh-display);
-    font-weight: 510;
+    font-weight: 400;
+    font-synthesis: none;
     line-height: var(--leading-heading);
     font-size: clamp(1.42rem, 7vw, 1.72rem);
   }
