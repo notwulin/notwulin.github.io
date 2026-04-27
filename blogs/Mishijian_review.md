@@ -5,7 +5,7 @@ title: 复盘：在大数据噪声中筛选定义品牌“有用的信息”
 page_class: blog-post-page
 side_nav_label: 导览
 blog_category: 项目复盘
-date: 2026-04-26 23:23:00 +0800
+date: 2026-04-26
 description: 复盘《米事见》舆情洞察平台如何从“全量监控”转向“信息提纯”，并用分析路径组织数据产品。
 tags:
   - Data Product

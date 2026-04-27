@@ -5,7 +5,7 @@ title: 复盘：一个粗糙但跑通了闭环的 AI 竞品雷达
 page_class: blog-post-page
 side_nav_label: 导览
 blog_category: 项目复盘
-date: 2026-04-05 23:26:00 +0800
+date: 2026-04-05
 description: 复盘 RivalSense 的 MVP 取舍：先跑通公开信号获取、Local-First 去噪、AI 报告与演示闭环，而不是一开始死磕复杂爬虫。
 tags:
   - AI Product
