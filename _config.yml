@@ -11,7 +11,7 @@ owner:
   name_native: 武琳
   bio: '"I forge ahead, never retracing my steps."'
   role: Product / Data / AI Applications
-  email: 3050687481@qq.com
+  email: notwulin@foxmail.com
   cv: /file/CV-Wulin.pdf
   wechat:
     qrcode: /images/wechat-qrcode.png
@@ -85,5 +85,13 @@ disqus:
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "minimal-mistakes.sublime-project", "minimal-mistakes.sublime-workspace"]
+
+defaults:
+  - scope:
+      path: "blogs"
+      type: "pages"
+    values:
+      layout: page
+      page_class: blog-post-page
 
 # Latest update in 2026/04/22.

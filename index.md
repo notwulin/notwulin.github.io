@@ -112,7 +112,7 @@ side_nav_label: 导览
     如果你想快速核验项目、经历或联系我，下面这几条已经足够。
   </p>
   <ul class="home-contact-list">
-    <li><strong>Mail</strong><a href="mailto:3050687481@qq.com">3050687481@qq.com</a></li>
+    <li><strong>Mail</strong><a href="mailto:notwulin@foxmail.com">notwulin@foxmail.com</a></li>
     <li><strong>CV</strong><a href="/file/CV-Wulin.pdf">Open PDF</a></li>
     <li><strong>GitHub</strong><a href="https://github.com/notwulin">notwulin</a></li>
     <li><strong>Work</strong><a href="/portfolio/">View portfolio</a></li>

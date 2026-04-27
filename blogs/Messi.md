@@ -1,10 +1,17 @@
 ---
 layout: page
 permalink: /blogs/messi/index.html
-title: Messi
-page_class: case-study-page
+title: 梅西的封神之路：阿根廷 2022 卡塔尔世界杯夺冠纪实
+page_class: blog-post-page
+side_nav_label: 导览
+blog_category: 体育随笔
+date: 2024-12-18
+description: 一篇关于 2022 卡塔尔世界杯决赛、梅西以及“相信美好会发生”的个人记录。
+tags:
+  - Football
+  - Essay
 ---
-### 阿根廷2022卡塔尔世界杯夺冠纪实
+# 阿根廷2022卡塔尔世界杯夺冠纪实
 
 今天是阿根廷世界杯夺冠 2 周年，我相信之后每年这个时候我都要回顾一下这个日子，这留给我的印象太深刻了。
 
