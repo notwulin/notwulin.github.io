@@ -4784,7 +4784,7 @@ p+p {
   }
 
   .navigation-toggle {
-    display: inline-flex;
+    display: none;
     flex: 0 0 auto;
     align-items: center;
     gap: 0.5rem;
@@ -4847,28 +4847,40 @@ p+p {
   }
 
   .top-navigation {
+    margin-top: 0.28rem;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    transition: max-height var(--motion-slow) var(--ease-out-quart), opacity var(--motion-slow) var(--ease-out-quart), margin-top var(--motion-slow) var(--ease-out-quart);
+  }
+
+  .navigation-shell[data-nav-enhanced="true"] .navigation-toggle {
+    display: inline-flex;
+  }
+
+  .navigation-shell[data-nav-enhanced="true"] .top-navigation {
     margin-top: 0;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height var(--motion-slow) var(--ease-out-quart), opacity var(--motion-slow) var(--ease-out-quart), margin-top var(--motion-slow) var(--ease-out-quart);
   }
 
-  .navigation-shell.is-open .top-navigation {
+  .navigation-shell[data-nav-enhanced="true"].is-open .top-navigation {
     margin-top: 0.28rem;
     max-height: 18rem;
     opacity: 1;
+    overflow: visible;
   }
 
-  .navigation-shell.is-open .navigation-toggle-line:nth-child(1) {
+  .navigation-shell[data-nav-enhanced="true"].is-open .navigation-toggle-line:nth-child(1) {
     transform: translateY(0.28rem) rotate(45deg);
   }
 
-  .navigation-shell.is-open .navigation-toggle-line:nth-child(2) {
+  .navigation-shell[data-nav-enhanced="true"].is-open .navigation-toggle-line:nth-child(2) {
     opacity: 0;
   }
 
-  .navigation-shell.is-open .navigation-toggle-line:nth-child(3) {
+  .navigation-shell[data-nav-enhanced="true"].is-open .navigation-toggle-line:nth-child(3) {
     transform: translateY(-0.18rem) rotate(-45deg);
   }
 
@@ -4923,6 +4935,9 @@ p+p {
   .home-title,
   .editorial-title,
   .article-wrap>h1:first-child {
+    font-family: var(--font-zh-display);
+    font-weight: 500;
+    line-height: var(--leading-tight);
     font-size: clamp(2.12rem, 10vw, 2.72rem);
   }
 
@@ -4931,6 +4946,9 @@ p+p {
   .home-section h2,
   .editorial-section h2,
   .hobby-section h2 {
+    font-family: var(--font-zh-display);
+    font-weight: 510;
+    line-height: var(--leading-heading);
     font-size: clamp(1.42rem, 7vw, 1.72rem);
   }
 

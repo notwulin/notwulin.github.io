@@ -1,5 +1,5 @@
 <div class="navigation-wrapper">
-  <div class="navigation-shell">
+  <div class="navigation-shell" data-nav-enhanced="false">
 	  <div class="navigation-bar">
 	    <div class="site-name">
 		    <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
@@ -35,34 +35,53 @@
     if (!shell || !toggle) return;
 
     var menu = shell.querySelector("#site-navigation-menu");
-    var desktopQuery = window.matchMedia("(min-width: 38em)");
+    var desktopQuery = window.matchMedia ? window.matchMedia("(min-width: 38em)") : null;
+
+    function isDesktop() {
+      return !!(desktopQuery && desktopQuery.matches);
+    }
 
     function setOpen(next) {
       shell.classList.toggle("is-open", next);
-      toggle.setAttribute("aria-expanded", String(next));
+      toggle.setAttribute("aria-expanded", next ? "true" : "false");
+    }
+
+    function findAnchor(node) {
+      while (node && node !== menu) {
+        if (node.tagName && node.tagName.toLowerCase() === "a") {
+          return node;
+        }
+        node = node.parentNode;
+      }
+      return null;
     }
 
     function syncDesktopState() {
-      if (desktopQuery.matches) {
+      if (isDesktop()) {
         setOpen(false);
       }
     }
 
+    shell.setAttribute("data-nav-enhanced", "true");
+    setOpen(false);
+
     toggle.addEventListener("click", function () {
-      var next = !shell.classList.contains("is-open");
-      setOpen(next);
+      setOpen(!shell.classList.contains("is-open"));
     });
 
     if (menu) {
       menu.addEventListener("click", function (event) {
-        if (event.target.closest("a") && !desktopQuery.matches) {
+        if (isDesktop()) return;
+        if (findAnchor(event.target)) {
           setOpen(false);
         }
       });
     }
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && shell.classList.contains("is-open")) {
+      var key = event.key || event.keyCode;
+      var isEscape = key === "Escape" || key === "Esc" || key === 27;
+      if (isEscape && shell.classList.contains("is-open")) {
         setOpen(false);
         toggle.focus();
       }
